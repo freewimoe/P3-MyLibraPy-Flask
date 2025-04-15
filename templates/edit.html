@@ -1,22 +1,25 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <title>Edit Book</title>
+  <meta charset="UTF-8">
+  <title>Edit Book – MyLibraPy</title>
 </head>
 <body>
-  <h1>Edit Book</h1>
+  <h1>✏️ Edit Book</h1>
+
   <form method="POST">
-    <input name="title" value="{{ book.title }}" required>
-    <input name="author" value="{{ book.author }}" required>
-    <input name="genre" value="{{ book.genre }}">
+    <input name="title" placeholder="Title" value="{{ book.title }}" required>
+    <input name="author" placeholder="Author" value="{{ book.author }}" required>
+    <input name="genre" placeholder="Genre" value="{{ book.genre }}">
     <select name="status">
       <option value="">-- Choose Status --</option>
       <option value="read" {% if book.status == "read" %}selected{% endif %}>Read</option>
       <option value="unread" {% if book.status == "unread" %}selected{% endif %}>Unread</option>
       <option value="wishlist" {% if book.status == "wishlist" %}selected{% endif %}>Wishlist</option>
     </select>
-    <button type="submit">Save</button>
+    <button type="submit">💾 Save</button>
   </form>
-  <p><a href="/">← Back to list</a></p>
+
+  <p><a href="{{ url_for('index') }}">⬅️ Back to library</a></p>
 </body>
 </html>

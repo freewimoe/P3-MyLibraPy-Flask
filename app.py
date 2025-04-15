@@ -19,7 +19,6 @@ def load_books():
             print(f"[Error] Could not read {DATA_FILE}: {e}")
     return []
 
-
 def save_books(books):
     """Save book list to JSON file."""
     try:
@@ -27,7 +26,6 @@ def save_books(books):
             json.dump(books, f, indent=4)
     except Exception as e:
         print(f"[Error] Could not write to {DATA_FILE}: {e}")
-
 
 def export_books_to_csv(books, filename="books_export.csv"):
     """Export book list to CSV file."""

@@ -7,16 +7,27 @@
 <body>
   <h1>📚 MyLibraPy – Your Book Collection</h1>
 
+  <!-- Form to Add a New Book -->
+  <h2>Add a New Book</h2>
   <form method="POST">
     <input name="title" placeholder="Title" required>
     <input name="author" placeholder="Author" required>
+    <input name="genre" placeholder="Genre">
+    <select name="status">
+      <option value="">-- Choose Status --</option>
+      <option value="read">Read</option>
+      <option value="unread">Unread</option>
+      <option value="wishlist">Wishlist</option>
+    </select>
     <button type="submit">Add</button>
   </form>
 
+  <!-- Book List Display -->
   <h2>Book List</h2>
-  <button onclick="toggleBooks()">📚 Show / Hide Book List</button>
 
-  <div id="book-list" style="display: none; margin-top: 1em;">
+  <button onclick="toggleBookList()">📚 Show / Hide Book List</button>
+  
+  <div id="book-list" style="display: none; margin-top: 10px;">
     {% if books %}
       <ul>
         {% for book in books %}
@@ -33,16 +44,33 @@
       <p>No books in your library yet.</p>
     {% endif %}
   </div>
-
-  <form method="GET" action="/export" style="margin-top: 1em;">
-    <button type="submit">📤 Export as CSV</button>
-  </form>
-
+  
   <script>
-    function toggleBooks() {
+    function toggleBookList() {
       const list = document.getElementById("book-list");
       list.style.display = list.style.display === "none" ? "block" : "none";
     }
   </script>
+  
+
+  <!-- Export Option -->
+  <p><a href="{{ url_for('export') }}">📤 Export to CSV</a></p>
+  
+  <!-- switch between 'Show' and 'Hide'-->
+  <script>
+    function toggleBookList() {
+      const list = document.getElementById("book-list");
+      const btn = document.getElementById("toggle-btn");
+  
+      if (list.style.display === "none") {
+        list.style.display = "block";
+        btn.innerText = "🔽 Hide Book List";
+      } else {
+        list.style.display = "none";
+        btn.innerText = "📚 Show Book List";
+      }
+    }
+  </script>
+  
 </body>
 </html>
