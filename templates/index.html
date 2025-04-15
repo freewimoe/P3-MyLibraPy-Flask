@@ -6,6 +6,7 @@
 </head>
 <body>
   <h1>📚 MyLibraPy – Your Book Collection</h1>
+
   <form method="POST">
     <input name="title" placeholder="Title" required>
     <input name="author" placeholder="Author" required>
@@ -13,10 +14,35 @@
   </form>
 
   <h2>Book List</h2>
-  <ul>
-    {% for book in books %}
-      <li><strong>{{ book.title }}</strong> by {{ book.author }}</li>
-    {% endfor %}
-  </ul>
+  <button onclick="toggleBooks()">📚 Show / Hide Book List</button>
+
+  <div id="book-list" style="display: none; margin-top: 1em;">
+    {% if books %}
+      <ul>
+        {% for book in books %}
+          <li>
+            <strong>{{ book.title }}</strong> by {{ book.author }}
+            {% if book.genre %} – {{ book.genre }}{% endif %}
+            {% if book.status %} ({{ book.status }}){% endif %}
+            <a href="{{ url_for('edit', book_id=loop.index0) }}">✏️ Edit</a>
+            <a href="{{ url_for('delete', book_id=loop.index0) }}">🗑️ Delete</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No books in your library yet.</p>
+    {% endif %}
+  </div>
+
+  <form method="GET" action="/export" style="margin-top: 1em;">
+    <button type="submit">📤 Export as CSV</button>
+  </form>
+
+  <script>
+    function toggleBooks() {
+      const list = document.getElementById("book-list");
+      list.style.display = list.style.display === "none" ? "block" : "none";
+    }
+  </script>
 </body>
 </html>
